@@ -43,15 +43,16 @@ public class ShopController {
         return searchService.search(pattern);
     }
 
-    @GetMapping
-    public String addProduct(@PathVariable("id") UUID id){
+    @GetMapping("/basket/{id}")
+    public String addProduct(@PathVariable("id") UUID id) {
         basketService.addToBasket(id);
         return "Продукт успешно добавлен.";
     }
 
     @GetMapping("/basket")
-    public UserBasket getUserBasket(){
+    public UserBasket getUserBasket() {
         return basketService.getUserBasket();
     }
+
 
 }

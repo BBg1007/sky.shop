@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 @Service
 public class BasketService {
     private final StorageService storageService;
@@ -26,12 +27,13 @@ public class BasketService {
             throw new IllegalArgumentException();
         }
     }
-    public UserBasket getUserBasket(){
-       List<BasketItem> items = productBasket.getProductBasket().entrySet().stream()
-                .map(x -> new BasketItem(storageService.getProductById(x.getKey()).orElseThrow(), x.getValue()))
-               .toList();
 
-       return new UserBasket(items);
+    public UserBasket getUserBasket() {
+        List<BasketItem> items = productBasket.getProductBasket().entrySet().stream()
+                .map(x -> new BasketItem(storageService.getProductById(x.getKey()).orElseThrow(), x.getValue()))
+                .toList();
+
+        return new UserBasket(items);
 
     }
 }

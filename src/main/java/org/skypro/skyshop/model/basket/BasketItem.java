@@ -14,9 +14,11 @@ public class BasketItem {
     }
 
 
-    public int getQuantity() {return quantity;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public Product getProduct() {return product;
+    public Product getProduct() {
+        return product;
     }
 }
