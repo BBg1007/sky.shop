@@ -2,6 +2,7 @@ package org.skypro.skyshop.model.service;
 
 import org.skypro.skyshop.model.article.Article;
 import org.skypro.skyshop.model.basket.ProductBasket;
+import org.skypro.skyshop.model.exeptions.NoSuchProductException;
 import org.skypro.skyshop.model.product.DiscountedProduct;
 import org.skypro.skyshop.model.product.FixPriceProduct;
 import org.skypro.skyshop.model.product.Product;
