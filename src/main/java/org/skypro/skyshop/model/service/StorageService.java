@@ -1,6 +1,7 @@
 package org.skypro.skyshop.model.service;
 
 import org.skypro.skyshop.model.article.Article;
+import org.skypro.skyshop.model.basket.ProductBasket;
 import org.skypro.skyshop.model.product.DiscountedProduct;
 import org.skypro.skyshop.model.product.FixPriceProduct;
 import org.skypro.skyshop.model.product.Product;
@@ -74,18 +75,13 @@ public class StorageService {
         addArticle(article);
         addArticle(article1);
         addArticle(article2);
+
+
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        StorageService that = (StorageService) o;
-        return Objects.equals(storageProduct, that.storageProduct) && Objects.equals(storageArticle, that.storageArticle);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(storageProduct, storageArticle);
+    public Optional<Product> getProductById(UUID id) {
+        return Optional.ofNullable(storageProduct.get(id));
     }
 
 

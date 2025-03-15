@@ -25,7 +25,7 @@ public abstract class Product implements Searchable {
         return name;
     }
 
-    public UUID getId(){
+    public UUID getId() {
         return id;
     }
 
@@ -33,6 +33,7 @@ public abstract class Product implements Searchable {
 
 
     public abstract int getPrice();
+
     @JsonIgnore
     @Override
     public String searchTerm() {

@@ -8,7 +8,7 @@ public class DiscountedProduct extends Product {
     int discountValue;
 
     public DiscountedProduct(String name, int basePrice, int discountValue, UUID id) {
-        super(name,id);
+        super(name, id);
         if (basePrice < 1) {
             throw new IllegalArgumentException(" Цена должна быть 1 или выше. Введенное значение - " + basePrice + ". Продукт не создан.");
         }

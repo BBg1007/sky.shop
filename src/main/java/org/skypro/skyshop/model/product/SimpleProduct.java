@@ -8,7 +8,7 @@ public class SimpleProduct extends Product {
     public int price;
 
     public SimpleProduct(String name, int price, UUID id) {
-        super(name,id);
+        super(name, id);
         try {
             inputCheck(price);
         } catch (IllegalArgumentException e) {
