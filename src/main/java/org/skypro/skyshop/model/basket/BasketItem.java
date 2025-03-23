@@ -2,7 +2,8 @@ package org.skypro.skyshop.model.basket;
 
 import org.skypro.skyshop.model.product.Product;
 
-import java.util.Optional;
+import java.util.Objects;
+
 
 public class BasketItem {
     private final Product product;
@@ -20,5 +21,17 @@ public class BasketItem {
 
     public Product getProduct() {
         return product;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        BasketItem item = (BasketItem) o;
+        return quantity == item.quantity && Objects.equals(product, item.product);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(product, quantity);
     }
 }

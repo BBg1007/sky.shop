@@ -20,9 +20,6 @@ public class StorageService {
     public StorageService() {
         this.storageProduct = new TreeMap<UUID, Product>();
         this.storageArticle = new TreeMap<UUID, Article>();
-
-        createTestData();
-
     }
 
     public void addProduct(Product product) {
@@ -54,35 +51,24 @@ public class StorageService {
     }
 
 
-    private void createTestData() {
-
-
-        Product product = new SimpleProduct("Вилка", 6000, UUID.randomUUID());
-        Product product1 = new DiscountedProduct("Вилка", 6800, 6, UUID.randomUUID());
-        Product product2 = new FixPriceProduct("Цепь", UUID.randomUUID());
-        Product product3 = new DiscountedProduct("Звездочка", 2300, 9, UUID.randomUUID());
-        Product product4 = new SimpleProduct("Рама", 15000, UUID.randomUUID());
-
-        addProduct(product);
-        addProduct(product1);
-        addProduct(product2);
-        addProduct(product3);
-        addProduct(product4);
-
-        Article article = new Article("Модели велосипедов для не высоких людей", "Горный велосипед PLANDY год 2024, рама 14, на рост 140-175см или Lorak Glory 100, фиолетовый, 26 дюймов, 17 размер рамы под рост 160-175 см", UUID.randomUUID());
-        Article article1 = new Article("Виды вилок для велосипеда", "Жесткие и Амортизационные (Пружинные, Воздушные, Воздушно-масляные и Пружинно-масляные", UUID.randomUUID());
-        Article article2 = new Article("Типы рам велосипедов", "Жёсткий (ригидный), Хардтейл, Двухподвес.", UUID.randomUUID());
-
-        addArticle(article);
-        addArticle(article1);
-        addArticle(article2);
-
-
-    }
-
-
     public Optional<Product> getProductById(UUID id) {
         return Optional.ofNullable(storageProduct.get(id));
+    }
+
+    public Product getAnyProduct() {
+
+        return storageProduct.values().stream().findAny().get();
+    }
+
+    public Article getAnyArticle() {
+
+        return storageArticle.values().stream().findAny().get();
+    }
+
+    public void checkProductExisting(UUID id) {
+        if (storageProduct.containsKey(id)) {
+            return;
+        } else throw new NoSuchProductException();
     }
 
 
