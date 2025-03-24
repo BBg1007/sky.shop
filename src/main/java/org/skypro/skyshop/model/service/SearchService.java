@@ -19,6 +19,5 @@ public class SearchService {
                 .filter(searchable -> searchable.searchTerm().toLowerCase().contains(search.toLowerCase()))
                 .map(SearchResult::fromSearchable)
                 .toList();
-
     }
 }

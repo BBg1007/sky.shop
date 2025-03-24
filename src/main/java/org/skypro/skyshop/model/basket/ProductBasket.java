@@ -1,5 +1,6 @@
 package org.skypro.skyshop.model.basket;
 
+import org.skypro.skyshop.model.service.StorageService;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -15,6 +16,7 @@ public class ProductBasket {
     }
 
     public void addProduct(UUID id) {
+
         if (productBasket.containsKey(id)) {
             productBasket.put(id, productBasket.get(id) + 1);
         } else {

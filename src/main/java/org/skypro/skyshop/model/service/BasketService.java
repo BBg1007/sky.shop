@@ -27,6 +27,7 @@ public class BasketService {
         } else {
             throw new NoSuchProductException();
         }
+
     }
 
     public UserBasket getUserBasket() {
