@@ -19,4 +19,5 @@ public class StorageFixture {
     public static Article getArticle() {
         return new Article("Название статьи", "Текст статьи", UUID.randomUUID());
     }
+
 }

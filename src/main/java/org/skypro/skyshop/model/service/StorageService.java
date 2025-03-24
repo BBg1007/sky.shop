@@ -50,26 +50,9 @@ public class StorageService {
 
     }
 
-
     public Optional<Product> getProductById(UUID id) {
         return Optional.ofNullable(storageProduct.get(id));
     }
 
-    public Product getAnyProduct() {
-
-        return storageProduct.values().stream().findAny().get();
-    }
-
-    public Article getAnyArticle() {
-
-        return storageArticle.values().stream().findAny().get();
-    }
-
-    public void checkProductExisting(UUID id) {
-        if (storageProduct.containsKey(id)) {
-            return;
-        } else throw new NoSuchProductException();
-    }
-
-
 }
+

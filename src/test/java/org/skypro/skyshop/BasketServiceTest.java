@@ -3,9 +3,12 @@ package org.skypro.skyshop;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.skypro.skyshop.model.basket.BasketItem;
 import org.skypro.skyshop.model.basket.ProductBasket;
 import org.skypro.skyshop.model.basket.UserBasket;
@@ -19,7 +22,9 @@ import org.skypro.skyshop.util.StorageFixture;
 
 import java.util.*;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+@ExtendWith(MockitoExtension.class)
 public class BasketServiceTest {
     @Mock
     private StorageService storageService;
@@ -30,25 +35,18 @@ public class BasketServiceTest {
 
     @Test
     public void tryAddNoExistingProduct_thenThrowException() {
-
-        storageService = Mockito.mock(StorageService.class);
-        basketService = new BasketService(storageService, productBasket);
-        Exception exception = null;
-
+        UUID id = UUID.randomUUID();
         try {
-            basketService.addToBasket(UUID.randomUUID());
+            basketService.addToBasket(id);
         } catch (Exception e) {
-            exception = e;
         }
 
-        Assertions.assertEquals(NoSuchProductException.class, exception.getClass());
+        assertThrows(NoSuchProductException.class, () -> basketService.addToBasket(id));
     }
 
     @Test
     public void addExistingProductInProductBasket() {
-        storageService = Mockito.mock(StorageService.class);
-        productBasket = Mockito.mock(ProductBasket.class);
-        basketService = new BasketService(storageService, productBasket);
+
         Product product = StorageFixture.getProduct();
         UUID id = product.getId();
         Mockito.when(storageService.getProductById(id)).thenReturn(Optional.of(product));
@@ -58,11 +56,7 @@ public class BasketServiceTest {
 
     @Test
     public void tryGetUserBasket_whenProductBasketEmpty() {
-        storageService = Mockito.mock(StorageService.class);
-        productBasket = Mockito.mock(ProductBasket.class);
-        basketService = new BasketService(storageService, productBasket);
         UserBasket userBasket = basketService.getUserBasket();
-
         Assertions.assertEquals(0, userBasket.getTotalCost());
         Assertions.assertEquals(Collections.<BasketItem>emptyList(), userBasket.getBasketItems());
 
@@ -70,9 +64,7 @@ public class BasketServiceTest {
 
     @Test
     public void whenGetUserBasket_thenReturnRequiredUserBasket() {
-        storageService = Mockito.mock(StorageService.class);
-        productBasket = Mockito.mock(ProductBasket.class);
-        basketService = new BasketService(storageService, productBasket);
+
         Product product = StorageFixture.getProduct();
         UUID id = product.getId();
         List<BasketItem> items = List.of(new BasketItem(product, 1));
@@ -84,8 +76,6 @@ public class BasketServiceTest {
 
         Assertions.assertEquals(product.getPrice(), userBasket.getTotalCost());
         Assertions.assertEquals(new UserBasket(items), userBasket);
-
-
     }
 
 
